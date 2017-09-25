@@ -80,10 +80,13 @@ $('#add-topic').on('click', function(event) {
 	topics.push(topic);
 	// Calling the renderButtons function to display the list of topics + new topic
 	renderButtons();
+	// clears input text after new button is created
+	$('#topic-input').val('');
 })
 // Adding click event listeners to all elements with a class of "topics"
 $(document).on("click", ".topics", displayGifs);
 
+// Clicking on gifs will change states between animate and still
 $(document).on("click", ".item", changeState);
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
