@@ -8,7 +8,7 @@ function displayGifs() {
 	var topic = $(this).attr("data-name");
 	// Giphy URL + search query  + public API key + limit is 10 gifs
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-	topic + "&api_key=dc6zaTOxFJmzC&limit=10";
+	topic + "&api_key=dc6zaTOxFJmzC&limit=12";
 	$.ajax({
 		url: queryURL,
 		method: "GET"
@@ -20,7 +20,7 @@ function displayGifs() {
 		for (var i = 0; i < results.length; i++) {
 			console.log(results);
 		  	// creates a new div for the gif
-		    var gifDiv = $("<div>");
+		    var gifDiv = $("<div class='gifContainers'>");
 		    // stores rating into a var
 		    var rating = results[i].rating;
 		    // creates a p tag and adds rating text to it
