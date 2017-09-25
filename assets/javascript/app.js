@@ -1,6 +1,5 @@
 var topics = ['birthday', 'christmas', 'easter', 'halloween', 'new years', 'thanksgiving', 'wedding'];
 
-
 function displayGifs() {
 	// removes gifs currently displayed
 	$('#gifBox').empty();
@@ -21,15 +20,18 @@ function displayGifs() {
 		for (var i = 0; i < results.length; i++) {
 			console.log(results);
 		  	// creates a new div for the gif
-		    var gifDiv = $("<div class='item'>");
+		    var gifDiv = $("<div>");
 		    // stores rating into a var
 		    var rating = results[i].rating;
 		    // creates a p tag and adds rating text to it
 		    var p = $("<p>").text("Rating: " + rating);
 		    // creates an image tage
-		    var image = $("<img>");
+		    var image = $("<img  class='item'>");
 		    // assigns the gif url to the image tag
-		    image.attr("src", results[i].images.fixed_height.url);
+		    image.attr("src", results[i].images.fixed_height_still.url);
+		    image.attr('still', results[i].images.fixed_height_still.url);
+		    image.attr('animate', results[i].images.fixed_height.url);
+		    image.attr('state', 'still');
 		    // prepends the rating and the gif to the new gifDiv
 		    gifDiv.prepend(p);
 		    gifDiv.prepend(image);
@@ -39,6 +41,19 @@ function displayGifs() {
 	});
 };
 
+function changeState() {
+	var state = $(this).attr('state');
+    var animateURL = $(this).attr('animate');
+    var stillURL = $(this).attr('still');
+
+    if (state === "still") {
+        $(this).attr('src', animateURL);
+        $(this).attr('state', 'animate');
+      } else {
+        $(this).attr('src', stillURL);
+        $(this).attr('state', 'still');
+      }
+};
 // function for displaying topic buttons
 function renderButtons() {
 	// remove existing buttons
@@ -68,6 +83,8 @@ $('#add-topic').on('click', function(event) {
 })
 // Adding click event listeners to all elements with a class of "topics"
 $(document).on("click", ".topics", displayGifs);
+
+$(document).on("click", ".item", changeState);
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
 
